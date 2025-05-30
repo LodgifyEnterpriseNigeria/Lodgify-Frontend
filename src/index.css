@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-main: 'Work Sans', sans-serif;
+    --font-main: 'Cal Sans';
     --color-primary: #5B21B6;
     --bg-primary: #5B21B6;
 }

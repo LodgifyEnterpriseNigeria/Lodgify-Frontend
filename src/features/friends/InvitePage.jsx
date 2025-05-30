@@ -4,6 +4,7 @@ import InviteNav from "./InviteNav";
 import MessageBar from "./MessageBar";
 import CheckIn from "./CheckIn";
 import CopyLink from './CopyLink';
+import { motion } from 'framer-motion';
 
 export default function InvitePage({title, message}) {
   const CheckinArray = [
@@ -21,65 +22,109 @@ export default function InvitePage({title, message}) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1B0B29]">
-      <InviteNav />
+    <div className="min-h-screen bg-transparent relative z-[100]">
+      <motion.div
+        className='pt-3 md:pt-5'
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ 
+          opacity: 1,
+          y: 0
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 10,
+          bounce: 0.5,
+          duration: 1
+        }}
+      >
+        <InviteNav />
+      </motion.div>
       
       {/* Points Section */}
-      <div className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 mt-24 md:mt-48">
         <div className="text-center">
-          <img 
+          <motion.img 
             src="/coin.png" 
             alt="Points Coin" 
-            className="w-60 mx-auto mb-4" 
+            className="w-40 md:w-60 mx-auto mb-4 transform -rotate-20"
+            style={{
+              filter: `
+                drop-shadow(0 0 30px rgba(255, 215, 0, 0.4))
+                drop-shadow(0 0 30px rgba(255, 215, 0, 0.4))
+              `
+            }}
+            whileHover={{ scale: [1, 1.2, 1, 1.2] }}
+            transition={{ duration: 1 }}
           />
-          <p className="text-white text-xl font-semibold mb-2">
+          <p className="text-white text-lg md:text-xl font-semibold mb-2 pt-6 md:pt-10">
             Total Point Balance
           </p>
-          <h1 className="text-white text-4xl font-extrabold mb-16">
+          <h1 className="text-white text-3xl md:text-4xl font-extrabold mb-8 md:mb-16">
             4,800
           </h1>
         </div>
 
         {/* Daily Check-in Section */}
-        <h2 className="text-white text-2xl font-bold text-center mb-8">
+        <h2 className="text-white text-3xl md:text-5xl font-bold text-center mb-4 md:mb-6 pt-4 md:pt-8">
           Daily Check-In
         </h2>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="max-w-4xl mx-auto px-2 md:px-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4">
             {CheckinArray.map((item, index) => (
               <CheckIn key={index} item={item} index={index} />
             ))}
           </div>
         </div>
 
-        <div className="w-full h-[2px] bg-slate-500 my-8" />
-
-        
+        <div className="w-full h-[2px] bg-transparent my-6 md:my-8" />
 
         {/* Action Buttons */}
-        <div className="flex gap-4 max-w-6xl mx-auto mt-20">
-          <Link 
-            to="/friends/invite"
-            className="bg-transparent text-2xl text-white font-semibold py-2 px-6 rounded-lg hover:bg-white/10 transition-colors"
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-6xl mx-auto mt-10 md:mt-20 px-4">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10
+            }}
+            className="w-full sm:w-auto"
           >
-            Invite Friends
-          </Link>
-          <Link 
-            to="/friends"
-            className="bg-transparent text-2xl text-white font-semibold py-2 px-6 rounded-lg border-2 border-white hover:bg-white/10 transition-colors"
+            <Link 
+              to="/waitlist/"
+              className="bg-transparent text-xl md:text-2xl text-white font-semibold py-2 px-6 rounded-lg hover:bg-white/10 transition-colors block text-center"
+            >
+              Invite Friends
+            </Link>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10
+            }}
+            className="w-full sm:w-auto"
           >
-            Tasks
-          </Link>
+            <Link 
+              to="/waitlist/tasks"
+              className="bg-transparent text-xl md:text-2xl text-white font-semibold py-2 px-6 rounded-lg border-2 border-white hover:bg-white/10 transition-colors block text-center"
+            >
+              Tasks
+            </Link>
+          </motion.div>
         </div>
 
         <CopyLink />
         {/* Referral Message */}
-        <div className='bg-gradient-to-r from-[#29113e] to-[#1B0B29] rounded-lg px-20 py-10 max-w-9xl mx-auto my-5'>
-          <h1 className="text-xl font-bold text-yellow-500 mb-2">
+        <div className='bg-gradient-to-r from-[#29113e] to-[#1B0B29] rounded-lg px-4 md:px-20 py-6 md:py-10 max-w-9xl mx-auto my-5'>
+          <h1 className="text-lg md:text-xl font-bold text-yellow-500 mb-2">
             {title}
           </h1>
-          <p className="text-white/90 text-sm mt-3">
+          <p className="text-white/90 text-xs md:text-sm mt-3">
             {message}
           </p>
         </div>
